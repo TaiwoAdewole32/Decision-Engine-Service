@@ -1,3 +1,5 @@
+package com.taiade.ruleengine.domain.condition;
+
 public enum Operator{
     EQUALS,
     NOT_EQUALS,

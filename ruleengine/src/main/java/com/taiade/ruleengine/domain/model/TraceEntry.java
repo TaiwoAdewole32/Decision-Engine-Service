@@ -1,18 +1,19 @@
+package com.taiade.ruleengine.domain.model;
 public class TraceEntry{
 
-    private String ruleId;
+    private String ruleID;
     private boolean matched;
     private String details;
 
-     public TraceEntry(String ruleId, boolean matched, String details) {
-        this.ruleId = ruleId;
+     public TraceEntry(String ruleID, boolean matched, String details) {
+        this.ruleID = ruleID;
         this.matched = matched;
         this.details = details;
     }
 
     // Getters
-    public String getRuleId() {
-        return ruleId;
+    public String getRuleID() {
+        return ruleID;
     }
 
     public boolean isMatched() {

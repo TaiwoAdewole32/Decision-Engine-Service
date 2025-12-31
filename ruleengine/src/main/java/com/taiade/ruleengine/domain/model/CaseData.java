@@ -1,3 +1,4 @@
+package com.taiade.ruleengine.domain.model;
 import jakarta.validation.constraints.*;
 
 public class CaseData{
@@ -42,11 +43,11 @@ public class CaseData{
     
     // Getters and setters
     public String getApplicantId() {
-        return applicantId;
+        return applicantID;
     }
 
-    public void setApplicantId(String applicantId) {
-        this.applicantId = applicantId;
+    public void setApplicantId(String applicantID) {
+        this.applicantID = applicantID;
     }
 
     public Integer getAge() {

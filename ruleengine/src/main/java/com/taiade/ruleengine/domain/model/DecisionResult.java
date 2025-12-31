@@ -1,3 +1,5 @@
+package com.taiade.ruleengine.domain.model;
+import java.util.ArrayList;
 import java.util.List;
 import jakarta.validation.constraints.NotNull;
 
@@ -44,8 +46,8 @@ public class DecisionResult{
         return reasons;
     }
 
-    public List<String> getMatchedRuleIds() {
-        return matchedRuleIds;
+    public List<String> getMatchedRuleIDs() {
+        return matchedRuleIDs;
     }
 
 }
