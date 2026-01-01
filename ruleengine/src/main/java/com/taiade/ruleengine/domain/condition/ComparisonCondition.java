@@ -48,6 +48,14 @@ public class ComparisonCondition implements Condition {
         return "Checked " + fieldName + " " + operator + " " + expectedValue;
     }
 
+    private Object getFieldValue(CaseData data, String field) {
+        return switch (field) {
+            case "age" -> data.getAge();
+            case "income" -> data.getIncome();
+            case "credit score" -> data.getCreditScore();
+            default -> throw new IllegalArgumentException("Unknown field: " + field);
+    };
+}
     
 
 }

@@ -1,4 +1,5 @@
 package com.taiade.ruleengine.domain.model;
+import com.taiade.ruleengine.domain.decision.Decision;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ public class DecisionResult{
     @NotNull
     private Decision decision;
 
+    @NotNull
     private Integer score;
 
     @NotNull
@@ -17,9 +19,9 @@ public class DecisionResult{
     private List<String> matchedRulesIDs = new ArrayList<>();
 
     //List<TraceEntry> trace;
-
+    
     public DecisionResult(){
-
+    
     }
 
     public DecisionResult(Decision decision){
@@ -46,8 +48,8 @@ public class DecisionResult{
         return reasons;
     }
 
-    public List<String> getMatchedRuleIDs() {
-        return matchedRuleIDs;
+    public List<String> getMatchedRulesIDs() {
+        return matchedRulesIDs;
     }
 
 }

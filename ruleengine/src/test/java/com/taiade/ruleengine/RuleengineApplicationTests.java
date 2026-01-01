@@ -8,6 +8,7 @@ class RuleengineApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 
 }
