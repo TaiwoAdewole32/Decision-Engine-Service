@@ -1,4 +1,4 @@
-package com.taiade.ruleengine.domain.condition;
+  package com.taiade.ruleengine.domain.condition;
 
 import com.taiade.ruleengine.domain.model.CaseData;
 
