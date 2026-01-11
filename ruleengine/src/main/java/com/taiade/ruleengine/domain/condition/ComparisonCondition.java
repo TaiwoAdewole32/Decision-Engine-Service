@@ -1,6 +1,6 @@
-package com.taiade.ruleengine.domain.condition;
-
+package com.taiade.ruleengine.domain.condition; 
 import com.taiade.ruleengine.domain.model.CaseData;
+import java.math.BigDecimal;
 
 public class ComparisonCondition implements Condition { 
 
@@ -27,13 +27,13 @@ public class ComparisonCondition implements Condition {
             case NOT_EQUALS:
                 return !actualValue.equals(expectedValue);
             case GREATER_THAN:
-                return ((Comparable) actualValue).compareTo(expectedValue) > 0;
+                return compareNumbers(actualValue, expectedValue) > 0;
             case LESS_THAN:
-                return ((Comparable) actualValue).compareTo(expectedValue) < 0;
+                return compareNumbers(actualValue, expectedValue) < 0;
             case GREATER_THAN_OR_EQUALS:
-                return ((Comparable) actualValue).compareTo(expectedValue) >= 0;
+                return compareNumbers(actualValue, expectedValue) >= 0;
             case LESS_THAN_OR_EQUALS:
-                return ((Comparable) actualValue).compareTo(expectedValue) <= 0;
+                return compareNumbers(actualValue, expectedValue) <= 0;
             case CONTAINS:
                 return ((String) actualValue).contains((String) expectedValue);
             case NOT_CONTAINS:
@@ -48,14 +48,28 @@ public class ComparisonCondition implements Condition {
         return "Checked " + fieldName + " " + operator + " " + expectedValue;
     }
 
+    private int compareNumbers(Object actual, Object expected) {    
+        if (!(actual instanceof Number) || !(expected instanceof Number)) {
+            throw new IllegalArgumentException("Both actual and expected values must be numbers for comparison.");
+        }
+        BigDecimal actualNum = new BigDecimal(actual.toString());
+        BigDecimal expectedNum = new BigDecimal(expected.toString());
+        return actualNum.compareTo(expectedNum);
+    }
+
     private Object getFieldValue(CaseData data, String field) {
         return switch (field) {
+            case "applicantId", "applicantID" -> data.getApplicantId();
             case "age" -> data.getAge();
             case "income" -> data.getIncome();
-            case "credit score" -> data.getCreditScore();
+            case "creditScore", "credit score" -> data.getCreditScore();
+            case "debtToIncome", "debt to income" -> data.getDebtToIncome();
+            case "hasLatePayments", "has late payments" -> data.getHasLatePayments();
+            case "requestedAmount", "requested amount" -> data.getRequestedAmount();
             default -> throw new IllegalArgumentException("Unknown field: " + field);
-    };
-}
+        };
+    }
+
     
 
 }
