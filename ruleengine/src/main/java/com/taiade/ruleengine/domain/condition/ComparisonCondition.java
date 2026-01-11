@@ -58,14 +58,14 @@ public class ComparisonCondition implements Condition {
     }
 
     private Object getFieldValue(CaseData data, String field) {
-        return switch (field) {
-            case "applicantId", "applicantID" -> data.getApplicantId();
+        return switch (field.toLowerCase().trim()) {
+            case "applicantid" -> data.getApplicantId();
             case "age" -> data.getAge();
             case "income" -> data.getIncome();
-            case "creditScore", "credit score" -> data.getCreditScore();
-            case "debtToIncome", "debt to income" -> data.getDebtToIncome();
-            case "hasLatePayments", "has late payments" -> data.getHasLatePayments();
-            case "requestedAmount", "requested amount" -> data.getRequestedAmount();
+            case "creditscore" -> data.getCreditScore();
+            case "debttoincome" -> data.getDebtToIncome();
+            case "haslatepayments" -> data.getHasLatePayments();
+            case "requestedamount" -> data.getRequestedAmount();
             default -> throw new IllegalArgumentException("Unknown field: " + field);
         };
     }
