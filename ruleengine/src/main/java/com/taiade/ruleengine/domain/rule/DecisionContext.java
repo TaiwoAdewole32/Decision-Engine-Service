@@ -3,10 +3,13 @@ import com.taiade.ruleengine.domain.decision.Decision;
 import java.util.List;
 import java.util.ArrayList;
 
-
+/**
+ * DecisionContext is the "working memory" while rules are being evaluated/applied.
+ */
 
 public class DecisionContext {
 
+    //Current decision
     private Decision decision;
     private int score;
     private final List<String> reasons = new ArrayList<>();
@@ -51,6 +54,7 @@ public class DecisionContext {
         return matchedRulesIDs;
     }
 
+    //Record a specific rule matched
     public void addMatchedRulesID(String ruleID) {
         matchedRulesIDs.add(ruleID);
     }

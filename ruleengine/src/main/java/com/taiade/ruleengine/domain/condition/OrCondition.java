@@ -3,7 +3,10 @@
 import com.taiade.ruleengine.domain.model.CaseData;
 
 import java.util.List;
-
+/**
+ * OrCondition evaluates to true if any of the contained conditions evaluate to true.
+ * Ex: (age >= 18) OR (creditScore > 700)
+ */
 public class OrCondition implements Condition {
 
     private final List<Condition> conditions;
@@ -14,6 +17,7 @@ public class OrCondition implements Condition {
 
     @Override
     public boolean evaluate(CaseData data) {
+        //If any condition is true, the OR condition is true
         for (Condition condition : conditions) {
             if (condition.evaluate(data)) {
                 return true;

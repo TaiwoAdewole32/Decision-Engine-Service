@@ -3,7 +3,10 @@ package com.taiade.ruleengine.domain.condition;
 import com.taiade.ruleengine.domain.model.CaseData;
 
 import java.util.List;
-
+/**
+ * AndCondition means all conditions must be true for the overall condition to be true.
+ * Ex: age >= 18 AND income >= 50000
+ */
 public class AndCondition implements Condition {
     private final List<Condition> conditions;
     // Constructor
@@ -13,6 +16,7 @@ public class AndCondition implements Condition {
     
     @Override
     public boolean evaluate(CaseData data) {
+        //If any condition is false, the AND condition is false
         for (Condition condition : conditions) {
             if (!condition.evaluate(data)) {
                 return false;
