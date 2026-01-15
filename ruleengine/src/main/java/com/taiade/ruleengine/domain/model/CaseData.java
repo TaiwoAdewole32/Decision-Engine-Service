@@ -1,6 +1,9 @@
 package com.taiade.ruleengine.domain.model;
 import jakarta.validation.constraints.*;
-
+/**
+ * CaseData is the input to the rule engine. It contains all relevant information about a loan application
+ * that rules will evaluate to arrive at a decision.
+ */
 public class CaseData{
     
     @NotNull
