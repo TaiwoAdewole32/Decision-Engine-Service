@@ -6,7 +6,7 @@ import com.taiade.ruleengine.domain.rule.*;
  * Ex: If a rule matches, we want to add points to the score: +10 points for low risk
  * Adds to the score in the DecisionContext.
  */
-public class AddScoreAction {
+public class AddScoreAction implements RuleAction {
 
     private final int score;
 

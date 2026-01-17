@@ -7,7 +7,7 @@ import com.taiade.ruleengine.domain.decision.*;;
  * Ex: If a rule matches, we want to set the final decision: APPROVE, REJECT, or REVIEW
  * Sets the decision in the DecisionContext.
  */
-public class SetDecisionAction {
+public class SetDecisionAction implements RuleAction {
     
     private final Decision decision;
 

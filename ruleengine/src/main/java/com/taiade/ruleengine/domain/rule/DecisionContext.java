@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 /**
  * DecisionContext is the "working memory" while rules are being evaluated/applied.
+ * It holds the current decision, score, reasons, and matched rule IDs.
+ * 
  */
 
 public class DecisionContext {
