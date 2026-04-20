@@ -1,12 +1,33 @@
 package com.taiade.ruleengine.domain.condition; 
 import com.taiade.ruleengine.domain.model.CaseData;
 import java.math.BigDecimal;
+import java.util.function.Function;
 /**
  * ComparisonCondition checks one field against one expected value using an operator.
  * Ex: age GREATER_THAN_OR_EQUALS 18, creditScore GREATER_THAN 700, hasLatePayments EQUALS false
  */
 public class ComparisonCondition implements Condition { 
 
+
+    public enum Field{
+        APPLICANT_ID(CaseData::getApplicantId),
+        AGE(CaseData::getAge), 
+        INCOME(CaseData::getIncome),
+        CREDIT_SCORE(CaseData::getCreditScore),
+        DEBT_TO_INCOME(CaseData::getDebtToIncome),
+        HAS_LATE_PAYMENTS(CaseData::getHasLatePayments),
+        REQUESTED_AMOUNT(CaseData::getRequestedAmount);
+
+        private final Function<CaseData, Object> extractor;
+
+        Field(Function<CaseData, Object> extractor) {
+            this.extractor = extractor;
+        }
+
+        public Object extract(CaseData data) {
+            return extractor.apply(data);
+        }
+    }
     private final String fieldName; //which field is being checked in CaaseData?
     private final Operator operator; //what comparison operator is being used?
     private final Object expectedValue; //what value are we comparing against?
