@@ -1,4 +1,4 @@
-Project: Rule-Based Decision Engine (Backend)
+Project: Rule-Based Decision Engine 
 
 Overview:
 This project is a Spring Boot backend service that evaluates structured input data against a configurable set of deterministic business rules and returns an explainable decision.
