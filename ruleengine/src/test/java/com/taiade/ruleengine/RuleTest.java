@@ -33,7 +33,7 @@ public class RuleTest {
         );
 
         Rule rejectLowCredit = new Rule("LowCreditScoreRule",
-                 new ComparisonCondition("creditScore", Operator.LESS_THAN, 650),
+                 new ComparisonCondition(ComparisonCondition.Field.CREDIT_SCORE, Operator.LESS_THAN, 650),
                 List.of(
                         new AddReasonAction("Credit score too low"),
                         new SetDecisionAction(Decision.REJECT)
