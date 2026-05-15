@@ -28,12 +28,21 @@ public class ComparisonCondition implements Condition {
             return extractor.apply(data);
         }
     }
+<<<<<<< HEAD
     private final String fieldName; //which field is being checked in CaaseData?
     private final Operator operator; //what comparison operator is being used?
     private final Object expectedValue; //what value are we comparing against?
 
     public ComparisonCondition(String fieldName, Operator operator, Object expectedValue) {
         this.fieldName = fieldName;
+=======
+    private final Field field; //which field is being checked in CaseData?
+    private final Operator operator; //what comparison operator is being used?
+    private final Object expectedValue; //what value are we comparing against?
+
+    public ComparisonCondition(Field field, Operator operator, Object expectedValue) {
+        this.field = field;
+>>>>>>> 5083c67 (I have to make edits to comparison condition test)
         this.operator = operator;
         this.expectedValue = expectedValue;
     }
@@ -41,11 +50,16 @@ public class ComparisonCondition implements Condition {
     @Override
     public boolean evaluate(CaseData caseData) {
         //Get the actual value from CaseData such as age, income, creditScore, etc.
+<<<<<<< HEAD
         Object actualValue = getFieldValue(caseData, fieldName);
+=======
+        Object actualValue = field.extract(caseData);
+>>>>>>> 5083c67 (I have to make edits to comparison condition test)
         if (actualValue == null) {
             return false;
         }
 
+<<<<<<< HEAD
         switch (operator) {
             case EQUALS:
                 return actualValue.equals(expectedValue);
@@ -68,12 +82,30 @@ public class ComparisonCondition implements Condition {
                 //If the operator is unknown, throw an error
                 throw new IllegalArgumentException("Unsupported operator: " + operator);
         }
+=======
+        return switch (operator) {
+            case EQUALS -> actualValue.equals(expectedValue);
+            case NOT_EQUALS -> !actualValue.equals(expectedValue);
+            case GREATER_THAN -> compareNumbers(actualValue, expectedValue) > 0;
+            case LESS_THAN -> compareNumbers(actualValue, expectedValue) < 0;
+            case GREATER_THAN_OR_EQUALS -> compareNumbers(actualValue, expectedValue) >= 0;
+            case LESS_THAN_OR_EQUALS -> compareNumbers(actualValue, expectedValue) <= 0;
+            case CONTAINS -> compareStrings(actualValue, expectedValue);
+            case NOT_CONTAINS -> !compareStrings(actualValue, expectedValue);
+            default -> throw new IllegalArgumentException("Unsupported operator: " + operator);
+        };
+>>>>>>> 5083c67 (I have to make edits to comparison condition test)
     }
 
     @Override
     public String explain(CaseData caseData) {
         //Used for logging, debugging, and explaining rule evaluations
+<<<<<<< HEAD
         return "Checked " + fieldName + " " + operator + " " + expectedValue;
+=======
+        Object actualValue = field.extract(caseData);
+        return "Checked " + field + " " + operator + " " + expectedValue + " (actual value: " + actualValue + ")";
+>>>>>>> 5083c67 (I have to make edits to comparison condition test)
     }
 
     /**
@@ -90,6 +122,7 @@ public class ComparisonCondition implements Condition {
         BigDecimal expectedNum = new BigDecimal(expected.toString());
         return actualNum.compareTo(expectedNum);
     }
+<<<<<<< HEAD
     /**
      * Maps fieldName string to the correct getter method in CaseData.
      * Ex: This is how "age" turns into data.getAge(), etc.
@@ -106,6 +139,14 @@ public class ComparisonCondition implements Condition {
             case "requestedamount" -> data.getRequestedAmount();
             default -> throw new IllegalArgumentException("Unknown field: " + field);
         };
+=======
+
+    private boolean compareStrings(Object actual, Object expected) {
+        if (!(actual instanceof String) || !(expected instanceof String)) {
+            throw new IllegalArgumentException("Both actual and expected values must be strings for CONTAINS operator.");
+        }
+        return ((String) actual).contains((String) expected);
+>>>>>>> 5083c67 (I have to make edits to comparison condition test)
     }
 
     

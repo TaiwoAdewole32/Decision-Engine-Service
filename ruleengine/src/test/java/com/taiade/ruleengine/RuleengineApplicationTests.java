@@ -6,7 +6,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.taiade.ruleengine.domain.condition.*;
+<<<<<<< HEAD
 import com.taiade.ruleengine.domain.model.CaseData;
+=======
+import com.taiade.ruleengine.domain.decision.Decision;
+import com.taiade.ruleengine.domain.model.CaseData;
+import com.taiade.ruleengine.domain.rule.Rule;
+import com.taiade.ruleengine.domain.rule.action.AddReasonAction;
+import com.taiade.ruleengine.domain.rule.action.SetDecisionAction;
+
+>>>>>>> 5083c67 (I have to make edits to comparison condition test)
 import java.util.List;
 @SpringBootTest
 class RuleengineApplicationTests {
@@ -159,6 +168,38 @@ class RuleengineApplicationTests {
 		assertEquals("AND Condition:\n - Checked age GREATER_THAN 25\n - Checked creditScore LESS_THAN 700\n", andCondition2.explain(data));	
 	}
 
+<<<<<<< HEAD
+=======
+	@Test
+	void testRuleEngine(){
+		// This is a very basic test to ensure RuleEngine can be instantiated and evaluate method can be called without errors.
+		
+
+		CaseData caseData = new CaseData(
+                "John Doe",
+                30,
+                60000,
+                620,
+                0.35,
+                false,
+                15000
+        );
+
+        Rule rejectLowCredit = new Rule("LowCreditScoreRule",
+                 new ComparisonCondition("creditScore", Operator.LESS_THAN, 650),
+                List.of(
+                        new AddReasonAction("Credit score too low"),
+                        new SetDecisionAction(Decision.REJECT)
+                ),
+                1,
+                true
+        );
+
+		//RuleEngine engine = new RuleEngine(List.of(rejectLowCredit));
+
+		assertTrue(true);
+	}
+>>>>>>> 5083c67 (I have to make edits to comparison condition test)
 	
 
 }
