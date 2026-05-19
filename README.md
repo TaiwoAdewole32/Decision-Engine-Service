@@ -9,6 +9,6 @@ Many business decisions cannot rely on black-box AI models due to compliance, re
 
 This service provides:
 * Fully deterministic rule evaluation
-Clear decision outcomes
-Human-readable explanations for every decision
-Configurable rules without code changes
+* Clear decision outcomes
+* Human-readable explanations for every decision
+* Configurable rules without code changes
