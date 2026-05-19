@@ -8,7 +8,7 @@ Problem This Service Solves:
 Many business decisions cannot rely on black-box AI models due to compliance, regulatory, or trust constraints.
 
 This service provides:
-Fully deterministic rule evaluation
+* Fully deterministic rule evaluation
 Clear decision outcomes
 Human-readable explanations for every decision
 Configurable rules without code changes
