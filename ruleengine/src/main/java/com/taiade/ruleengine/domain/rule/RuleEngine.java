@@ -23,12 +23,13 @@ public class RuleEngine {
         for (Rule rule : rules) {
             if (rule.matches(data)) {
                 rule.applyActions(context);
+                context.addMatchedRulesID(rule.getId());
                 if (rule.isStopOnMatch()) {
                     break; // Stop evaluating further rules if this rule matches and is set to stop on match
                 }
             }
         }
-        return context.getDecision() == null ? new DecisionResult(Decision.REJECT) : new DecisionResult(context.getDecision());
+        return context.getDecision() == null ? new DecisionResult(Decision.REVIEW, 0, Collections.emptyList(), Collections.emptyList(), Collections.emptyList()) : new DecisionResult(context.getDecision(), context.getScore(), context.getReasons(), context.getMatchedRulesIDs(), context.getTrace());
     }
 
 }

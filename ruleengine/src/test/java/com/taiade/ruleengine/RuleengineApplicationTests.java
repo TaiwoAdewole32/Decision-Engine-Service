@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.taiade.ruleengine.domain.condition.*;
 import com.taiade.ruleengine.domain.decision.Decision;
 import com.taiade.ruleengine.domain.model.CaseData;
+import com.taiade.ruleengine.domain.rule.DecisionContext;
+import com.taiade.ruleengine.domain.rule.action.*;
+
 import java.util.List;
 @SpringBootTest
 class RuleengineApplicationTests {
@@ -195,4 +198,102 @@ class RuleengineApplicationTests {
 	}
 	
 
+	private CaseData goodApplicant = new CaseData("sarah251", 35, 81000, 750, 0.25, false, 20000);
+	private CaseData riskyApplicant = new CaseData("jon617", 22, 28000, 580, 0.55, true, 40000);
+	private DecisionContext context = new DecisionContext();
+
+	//Test to verify that the DecisionContext initializes with the expected default values
+	@Test
+	void decisionContextInitialState(){
+		assertNull(context.getDecision(), "Decision should be null initially");
+		assertEquals(0, context.getScore());
+		assertTrue(context.getReasons().isEmpty(), "Reasons list should be empty initially");
+		assertTrue(context.getMatchedRulesIDs().isEmpty());
+	}
+
+	//Test set and get decision in the DecisionContext
+	@Test
+	void decisionContextSetandGetDecision(){
+		context.setDecision(Decision.APPROVE);
+		assertEquals(Decision.APPROVE, context.getDecision());
+
+		context.setDecision(Decision.REJECT);
+		assertEquals(Decision.REJECT, context.getDecision());
+
+		context.setDecision(Decision.REVIEW);
+		assertEquals(Decision.REVIEW, context.getDecision());
+	}
+
+	@Test
+	void decisionContextScoreAccumulation(){
+		context.addScore(10);
+		assertEquals(10, context.getScore());
+
+		context.addScore(5);
+		assertEquals(15, context.getScore());
+
+		context.addScore(-3);
+		assertEquals(12, context.getScore());
+
+		assertThrows(IllegalArgumentException.class, () -> context.addScore(-20));
+	}
+
+	@Test
+	void decisionContextReasonsAndMatchedRules(){
+		context.addReason("Income above threshold");
+		context.addReason("Credit score good");
+		assertEquals(2, context.getReasons().size());
+		assertTrue(context.getReasons().contains("Income above threshold"));
+		assertTrue(context.getReasons().contains("Credit score good"));
+
+		context.addMatchedRulesID("rule1");
+		context.addMatchedRulesID("rule2");
+		assertEquals(2, context.getMatchedRulesIDs().size());
+		assertTrue(context.getMatchedRulesIDs().contains("rule1"));
+		assertTrue(context.getMatchedRulesIDs().contains("rule2"));
+	}
+
+	@Test
+	void decisionContextToString(){
+		context.setDecision(Decision.APPROVE);
+		context.addScore(10);
+		context.addReason("Income above threshold");
+		context.addMatchedRulesID("rule1");
+
+		String expected = "DecisionContext{decision=APPROVE, score=10, reasons=[Income above threshold], matchedRulesIDs=[rule1]}";
+		assertEquals(expected, context.toString());
+	}
+
+	@Test 
+	void addScoreActionToContext(){
+		new AddScoreAction(30).apply(context);
+		assertEquals(30, context.getScore());
+
+		String expected = "DecisionContext{decision=null, score=30, reasons=[], matchedRulesIDs=[]}";
+		assertEquals(expected, context.toString());
+
+		context.addScore(50);
+		new AddScoreAction(20).apply(context);
+		assertEquals(100, context.getScore());
+	}
+
+	@Test
+	void addReasonActionToContext(){
+		new AddReasonAction("Credit score below threshold").apply(context);
+
+		List<String> reasons = context.getReasons();
+		assertEquals(1, reasons.size());
+		assertTrue(reasons.contains("Credit score below threshold"));
+	}
+
+
+
+
+	
+
+		
+	
+
 }
+
+

@@ -1,5 +1,7 @@
 package com.taiade.ruleengine.domain.rule;
 import com.taiade.ruleengine.domain.decision.Decision;
+import com.taiade.ruleengine.domain.model.TraceEntry;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,6 +18,7 @@ public class DecisionContext {
     private int score;
     private final List<String> reasons = new ArrayList<>();
     private final List<String> matchedRulesIDs = new ArrayList<>();
+    private final List<TraceEntry> trace = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -42,6 +45,12 @@ public class DecisionContext {
 
     public void addScore(int score) {
         this.score += score;
+       if (this.score < 0) {
+            this.score = 0; // Ensure score doesn't go negative
+        }
+        if (this.score > 200){
+            this.score = 200; // Cap score at 200
+        }
     }
 
     public List<String> getReasons() {
@@ -59,6 +68,10 @@ public class DecisionContext {
     //Record a specific rule matched
     public void addMatchedRulesID(String ruleID) {
         matchedRulesIDs.add(ruleID);
+    }
+
+    public List<TraceEntry> getTrace() {
+        return trace;
     }
 
 

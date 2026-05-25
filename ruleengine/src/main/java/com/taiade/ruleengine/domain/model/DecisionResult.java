@@ -29,7 +29,7 @@ public class DecisionResult{
 
     //Store detailed trace of each rule evaluation for debugging/auditing purposes
     @NotNull
-    private List<TraceEntry> trace;
+    private List<TraceEntry> trace = new ArrayList<>();
     
     //Empty constructor needed for frameworks
     public DecisionResult(){
@@ -37,8 +37,12 @@ public class DecisionResult{
     }
 
     //Create a result with a decision already set
-    public DecisionResult(Decision decision){
+    public DecisionResult(Decision decision, Integer score, List<String> reasons, List<String> matchedRulesIDs, List<TraceEntry> trace) {
         this.decision = decision;
+        this.score = score;
+        this.reasons = reasons;
+        this.matchedRulesIDs = matchedRulesIDs;
+        this.trace = trace;
     }
 
     public Decision getDecision() {
@@ -63,6 +67,10 @@ public class DecisionResult{
 
     public List<String> getMatchedRulesIDs() {
         return matchedRulesIDs;
+    }
+
+    public List<TraceEntry> getTrace() {
+        return trace;
     }
 
 }

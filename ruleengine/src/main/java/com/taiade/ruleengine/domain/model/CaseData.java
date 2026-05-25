@@ -32,6 +32,16 @@ public class CaseData{
     @NotNull
     @Min(1)
     private Integer requestedAmount;
+
+    //Add these groups later on and modify student test cases accordingly
+    // @NotNull
+    // private String loanPurpose;
+
+    // @NotNull
+    // private String employmentStatus;
+
+    // @NotNull
+    // private Integer demographicGroup;
     
     public CaseData(String applicantID, Integer age, Integer income, Integer creditScore, Double debtToIncome, Boolean hasLatePayments, Integer requestedAmount) {
         this.applicantID = applicantID;
