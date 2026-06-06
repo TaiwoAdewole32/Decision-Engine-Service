@@ -1,4 +1,4 @@
-# Project: Rule-Based Decision Engine 
+# Project: Fair-Loan Decision Engine 
 
 ## Overview: 
 A fairness-aware loan decision engine built with Java and Spring Boot. This project evaluates loan applications  using configurable business rules, generates explainable approval decisions, and is being designed to support bias auditing for more transparent lending workflows. Loan approval systems can affect major life opportunities, but many decision systems are difficult to explain or audit. FairLoan Decision Engine is a backend service that simulates how a lender could evaluate loan applications while keeping decision logic transparent, traceable, and easier to review for potential bias. The goal of this project is not just to approve or reject applications. The goal is to build a decision system that can explain **why** a decision was made and eventually help identify whether certain groups are being unfairly impacted.
