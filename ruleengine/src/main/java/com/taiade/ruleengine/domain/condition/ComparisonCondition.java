@@ -1,7 +1,6 @@
 package com.taiade.ruleengine.domain.condition; 
 import com.taiade.ruleengine.domain.model.CaseData;
 import java.math.BigDecimal;
-import java.util.function.Function;
 /**
  * ComparisonCondition checks one field against one expected value using an operator.
  * Ex: age GREATER_THAN_OR_EQUALS 18, creditScore GREATER_THAN 700, hasLatePayments EQUALS false
@@ -10,22 +9,28 @@ public class ComparisonCondition implements Condition {
 
 
     public enum Field{
-        APPLICANT_ID(CaseData::getApplicantId),
-        AGE(CaseData::getAge), 
-        INCOME(CaseData::getIncome),
-        CREDIT_SCORE(CaseData::getCreditScore),
-        DEBT_TO_INCOME(CaseData::getDebtToIncome),
-        HAS_LATE_PAYMENTS(CaseData::getHasLatePayments),
-        REQUESTED_AMOUNT(CaseData::getRequestedAmount);
+        APPLICANT_ID(data -> data.getApplicantId()),
+        AGE(data -> data.getAge()),
+        INCOME(data -> data.getIncome()),
+        CREDIT_SCORE(data -> data.getCreditScore()),
+        DEBT_TO_INCOME(data -> data.getDebtToIncome()),
+        HAS_LATE_PAYMENTS(data -> data.getHasLatePayments()),
+        REQUESTED_AMOUNT(data -> data.getRequestedAmount()),
+        EMPLOYED(data -> data.isEmployed());
 
-        private final Function<CaseData, Object> extractor;
+        private final Extractor extractor;
 
-        Field(Function<CaseData, Object> extractor) {
+        Field(Extractor extractor) {
             this.extractor = extractor;
         }
 
         public Object extract(CaseData data) {
             return extractor.apply(data);
+        }
+
+        @FunctionalInterface
+        interface Extractor {
+            Object apply(CaseData data);
         }
     }
     private final Field field; //which field is being checked in CaseData?
@@ -74,7 +79,7 @@ public class ComparisonCondition implements Condition {
      */
     private int compareNumbers(Object actual, Object expected) {    
         if (!(actual instanceof Number) || !(expected instanceof Number)) {
-            throw new IllegalArgumentException("Both actual and expected values must be numbers for comparison.");
+           throw new IllegalStateException("Field " + field + "is not numeric");
         }
         BigDecimal actualNum = new BigDecimal(actual.toString());
         BigDecimal expectedNum = new BigDecimal(expected.toString());
@@ -83,7 +88,7 @@ public class ComparisonCondition implements Condition {
 
     private boolean compareStrings(Object actual, Object expected) {
         if (!(actual instanceof String) || !(expected instanceof String)) {
-            throw new IllegalArgumentException("Both actual and expected values must be strings for CONTAINS operator.");
+            throw new IllegalStateException("Field " + field + " is not a String");
         }
         return ((String) actual).contains((String) expected);
     }

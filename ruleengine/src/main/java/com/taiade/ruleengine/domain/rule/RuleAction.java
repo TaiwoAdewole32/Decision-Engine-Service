@@ -1,5 +1,7 @@
 package com.taiade.ruleengine.domain.rule;
 
+import com.taiade.ruleengine.domain.decision.DecisionContext;
+
 /**
  * RuleAction is the thing a rule does when it matches
  * Ex: If a rule matches, we might want to add points to the score, or add a reason, or set the decision to REJECT

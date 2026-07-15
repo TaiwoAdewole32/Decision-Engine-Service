@@ -1,5 +1,6 @@
 package com.taiade.ruleengine.domain.rule;
 import com.taiade.ruleengine.domain.condition.Condition;
+import com.taiade.ruleengine.domain.decision.DecisionContext;
 import com.taiade.ruleengine.domain.model.*;
 import java.util.List;
 /**

@@ -1,5 +1,4 @@
-package com.taiade.ruleengine.domain.model;
-import com.taiade.ruleengine.domain.decision.Decision;
+package com.taiade.ruleengine.domain.decision;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.validation.constraints.NotNull;

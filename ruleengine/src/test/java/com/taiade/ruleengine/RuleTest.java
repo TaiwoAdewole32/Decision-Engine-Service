@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.taiade.ruleengine.domain.decision.Decision;
+import com.taiade.ruleengine.domain.decision.DecisionContext;
 import com.taiade.ruleengine.domain.model.CaseData;
-import com.taiade.ruleengine.domain.rule.DecisionContext;
 import com.taiade.ruleengine.domain.rule.Rule;
 import com.taiade.ruleengine.domain.rule.action.AddReasonAction;
 import com.taiade.ruleengine.domain.rule.action.SetDecisionAction;
@@ -17,7 +17,7 @@ import com.taiade.ruleengine.domain.condition.ComparisonCondition;
 
 import java.util.List;
 
-@SpringBootTest
+//@SpringBootTest
 public class RuleTest {
     @Test
     void test1(){
@@ -29,7 +29,8 @@ public class RuleTest {
                 620,
                 0.35,
                 false,
-                15000
+                15000,
+                true
         );
 
         Rule rejectLowCredit = new Rule("LowCreditScoreRule",

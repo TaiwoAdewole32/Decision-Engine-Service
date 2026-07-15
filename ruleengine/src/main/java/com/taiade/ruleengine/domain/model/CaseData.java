@@ -1,11 +1,15 @@
 package com.taiade.ruleengine.domain.model;
 import jakarta.validation.constraints.*;
-/**
- * CaseData is the input to the rule engine. It contains all relevant information about a loan application
- * that rules will evaluate to arrive at a decision.
- */
-public class CaseData{
-    
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "applications")
+public class CaseData {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @NotNull
     private String applicantID;
 
@@ -16,6 +20,7 @@ public class CaseData{
     @NotNull
     @Min(0)
     private Integer income;
+
     @NotNull
     @Min(300)
     @Max(850)
@@ -33,17 +38,12 @@ public class CaseData{
     @Min(1)
     private Integer requestedAmount;
 
-    //Add these groups later on and modify student test cases accordingly
-    // @NotNull
-    // private String loanPurpose;
+    @NotNull
+    private boolean isEmployed;
 
-    // @NotNull
-    // private String employmentStatus;
+    public CaseData() {}
 
-    // @NotNull
-    // private Integer demographicGroup;
-    
-    public CaseData(String applicantID, Integer age, Integer income, Integer creditScore, Double debtToIncome, Boolean hasLatePayments, Integer requestedAmount) {
+    public CaseData(String applicantID, Integer age, Integer income, Integer creditScore, Double debtToIncome, Boolean hasLatePayments, Integer requestedAmount, boolean isEmployed) {
         this.applicantID = applicantID;
         this.age = age;
         this.income = income;
@@ -51,10 +51,14 @@ public class CaseData{
         this.debtToIncome = debtToIncome;
         this.hasLatePayments = hasLatePayments;
         this.requestedAmount = requestedAmount;
+        this.isEmployed = isEmployed;
     }
 
-    
-    // Getters and setters
+
+    public Long getId() {
+        return id;
+    }
+
     public String getApplicantId() {
         return applicantID;
     }
@@ -109,5 +113,13 @@ public class CaseData{
 
     public void setRequestedAmount(Integer requestedAmount) {
         this.requestedAmount = requestedAmount;
+    }
+
+    public boolean isEmployed() {
+        return isEmployed;
+    }
+
+    public void setEmployed(boolean isEmployed) {
+        this.isEmployed = isEmployed;
     }
 }

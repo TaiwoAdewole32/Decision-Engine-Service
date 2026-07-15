@@ -1,7 +1,4 @@
-package com.taiade.ruleengine.domain.rule;
-import com.taiade.ruleengine.domain.decision.Decision;
-import com.taiade.ruleengine.domain.model.TraceEntry;
-
+package com.taiade.ruleengine.domain.decision;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -74,7 +71,7 @@ public class DecisionContext {
         return trace;
     }
 
-
-
-
+    public void addTrace(TraceEntry entry) {
+        trace.add(entry);
+    }
 }

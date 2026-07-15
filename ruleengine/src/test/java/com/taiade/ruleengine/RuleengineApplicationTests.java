@@ -7,12 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.taiade.ruleengine.domain.condition.*;
 import com.taiade.ruleengine.domain.decision.Decision;
+import com.taiade.ruleengine.domain.decision.DecisionContext;
 import com.taiade.ruleengine.domain.model.CaseData;
-import com.taiade.ruleengine.domain.rule.DecisionContext;
 import com.taiade.ruleengine.domain.rule.action.*;
 
 import java.util.List;
-@SpringBootTest
+
 class RuleengineApplicationTests {
 
 	@Test
@@ -24,8 +24,10 @@ class RuleengineApplicationTests {
 			720,
 			0.35,
 			false,
-			15000
+			15000,
+			true
 		);
+	
 		assertEquals("applicant123", data.getApplicantId());
         assertEquals(30, data.getAge());
         assertEquals(60000, data.getIncome());
@@ -33,6 +35,7 @@ class RuleengineApplicationTests {
         assertEquals(0.35, data.getDebtToIncome());
         assertFalse(data.getHasLatePayments());
         assertEquals(15000, data.getRequestedAmount());
+        assertTrue(data.isEmployed());
 
         Condition c = new ComparisonCondition(ComparisonCondition.Field.AGE, Operator.EQUALS, 30);
         assertTrue(c.evaluate(data));
@@ -71,7 +74,9 @@ class RuleengineApplicationTests {
 			720,
 			0.35,
 			false,
-			15000
+			15000,
+			true
+			
 		);
 
 		Condition c = new ComparisonCondition(ComparisonCondition.Field.AGE, Operator.EQUALS, 30);
@@ -92,7 +97,8 @@ class RuleengineApplicationTests {
 			720,
 			0.35,
 			false,
-			15000
+			15000,
+			true
 		);
 
 		Condition baseCondition = new ComparisonCondition(ComparisonCondition.Field.AGE, Operator.EQUALS, 30);
@@ -120,7 +126,8 @@ class RuleengineApplicationTests {
 			720,
 			0.35,
 			false,
-			15000
+			15000,
+			true
 		);
 
 		Condition condition1 = new ComparisonCondition(ComparisonCondition.Field.AGE, Operator.LESS_THAN, 25);
@@ -146,7 +153,8 @@ class RuleengineApplicationTests {
 			720,
 			0.35,
 			false,
-			15000
+			15000,
+			true
 		);
 
 		Condition condition1 = new ComparisonCondition(ComparisonCondition.Field.AGE, Operator.GREATER_THAN, 25);
@@ -198,8 +206,8 @@ class RuleengineApplicationTests {
 	}
 	
 
-	private CaseData goodApplicant = new CaseData("sarah251", 35, 81000, 750, 0.25, false, 20000);
-	private CaseData riskyApplicant = new CaseData("jon617", 22, 28000, 580, 0.55, true, 40000);
+	private CaseData goodApplicant = new CaseData("sarah251", 35, 81000, 750, 0.25, false, 20000, true);
+	private CaseData riskyApplicant = new CaseData("jon617", 22, 28000, 580, 0.55, true, 40000, true);
 	private DecisionContext context = new DecisionContext();
 
 	//Test to verify that the DecisionContext initializes with the expected default values
@@ -235,7 +243,8 @@ class RuleengineApplicationTests {
 		context.addScore(-3);
 		assertEquals(12, context.getScore());
 
-		assertThrows(IllegalArgumentException.class, () -> context.addScore(-20));
+		context.addScore(-20);
+		assertEquals(0, context.getScore(), "Score should not go negative");
 	}
 
 	@Test

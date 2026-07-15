@@ -1,0 +1,130 @@
+{
+  "rules": [
+    {
+      "id": "income-check",
+      "priority": 1,
+      "stopOnMatch": false,
+      "condition": {
+        "type": "comparison",
+        "field": "income",
+        "operator": "LESS_THAN",
+        "threshold": 30000
+      },
+      "actions": [
+        {
+          "type": "setDecision",
+          "decision": "REJECT"
+        },
+        {
+          "type": "addReason",
+          "reason": "Income below minimum threshold of $30,000"
+        }
+      ]
+    },
+    {
+      "id": "credit-score-check",
+      "priority": 2,
+      "stopOnMatch": false,
+      "condition": {
+        "type": "comparison",
+        "field": "credit_score",
+        "operator": "LESS_THAN",
+        "threshold": 620
+      },
+      "actions": [
+        {
+          "type": "setDecision",
+          "decision": "REJECT"
+        },
+        {
+          "type": "addReason",
+          "reason": "Credit score below minimum of 620"
+        }
+      ]
+    },
+    {
+      "id": "late-payments-check",
+      "priority": 3,
+      "stopOnMatch": false,
+      "condition": {
+        "type": "comparison",
+        "field": "has_late_payments",
+        "operator": "EQUALS",
+        "threshold": true
+      },
+      "actions": [
+        {
+          "type": "setDecision",
+          "decision": "REVIEW"
+        },
+        {
+          "type": "addReason",
+          "reason": "Applicant has history of late payments"
+        }
+      ]
+    },
+    {
+      "id": "debt-to-income-check",
+      "priority": 4,
+      "stopOnMatch": false,
+      "condition": {
+        "type": "comparison",
+        "field": "debt_to_income",
+        "operator": "GREATER_THAN",
+        "threshold": 0.43
+      },
+      "actions": [
+        {
+          "type": "setDecision",
+          "decision": "REVIEW"
+        },
+        {
+          "type": "addReason",
+          "reason": "Debt-to-income ratio above 43%"
+        }
+      ]
+    },
+    {
+      "id": "approve-qualified",
+      "priority": 100,
+      "stopOnMatch": true,
+      "condition": {
+        "type": "and",
+        "conditions": [
+          {
+            "type": "comparison",
+            "field": "income",
+            "operator": "GREATER_THAN_OR_EQUALS",
+            "threshold": 50000
+          },
+          {
+            "type": "comparison",
+            "field": "credit_score",
+            "operator": "GREATER_THAN_OR_EQUAL",
+            "threshold": 700
+          },
+          {
+            "type": "comparison",
+            "field": "debt_to_income",
+            "operator": "LESS_THAN_OR_EQUALS",
+            "threshold": 0.36
+          }
+        ]
+      },
+      "actions": [
+        {
+          "type": "setDecision",
+          "decision": "APPROVE"
+        },
+        {
+          "type": "addReason",
+          "reason": "Applicant meets strong approval criteria"
+        },
+        {
+          "type": "addScore",
+          "score": 50
+        }
+      ]
+    }
+  ]
+}

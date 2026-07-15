@@ -1,4 +1,4 @@
-package com.taiade.ruleengine.domain.model;
+package com.taiade.ruleengine.domain.decision;
 /**
  * TraceEntry captures the evaluation details of a single rule within the rule engine.
  * It records whether the rule was matched and any relevant details for auditing or debugging.

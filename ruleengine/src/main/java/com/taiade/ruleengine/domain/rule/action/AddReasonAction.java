@@ -1,5 +1,6 @@
 package com.taiade.ruleengine.domain.rule.action;
 
+import com.taiade.ruleengine.domain.decision.DecisionContext;
 import com.taiade.ruleengine.domain.rule.*;
 
 /**

@@ -3,8 +3,9 @@ package com.taiade.ruleengine.domain.rule;
 import java.util.List;
 
 import com.taiade.ruleengine.domain.decision.Decision;
+import com.taiade.ruleengine.domain.decision.DecisionContext;
+import com.taiade.ruleengine.domain.decision.DecisionResult;
 import com.taiade.ruleengine.domain.model.CaseData;
-import com.taiade.ruleengine.domain.model.DecisionResult;
 
 import java.util.Collections;
 
